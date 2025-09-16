@@ -2,11 +2,10 @@
 
 Helm chart for deploying a BeamMP server on Kubernetes.
 
-## Add the Helm repo
+## Install from OCI registry
 
 ```sh
-helm repo add beammp-helm-chart oci://ghcr.io/malkin0xb8/beammp-helm-chart
-helm repo update
+helm install my-beammp oci://ghcr.io/malkin0xb8/beammp-helm-chart/beammp --version 0.1.0
 ```
 
-See `values.yaml` for more configuration options or https://wiki.beammp.com/en/home/server-installation
+See `values.yaml` for more configuration options or visit [BeamMP server installation wiki](https://wiki.beammp.com/en/home/server-installation).
