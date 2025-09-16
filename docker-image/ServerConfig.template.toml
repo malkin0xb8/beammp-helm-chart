@@ -1,0 +1,11 @@
+[General]
+AuthKey = '${AUTH_KEY}'
+Debug = ${DEBUG}
+Description = '${DESCRIPTION}'
+Map = '${MAP}'
+MaxCars = ${MAX_CARS}
+MaxPlayers = ${MAX_PLAYERS}
+Name = '${NAME}'
+Port = ${PORT}
+Private = ${PRIVATE}
+ResourceFolder = '${RESOURCE_FOLDER}'
