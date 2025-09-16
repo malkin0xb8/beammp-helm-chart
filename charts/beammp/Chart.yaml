@@ -1,0 +1,16 @@
+apiVersion: v2
+name: beammp
+description: A Helm chart for deploying BeamMP server on Kubernetes
+type: application
+version: 0.1.0
+appVersion: "latest"
+keywords:
+  - beammp
+  - beamng
+  - multiplayer
+  - game-server
+maintainers:
+  - name: malkin0xb8
+sources:
+  - https://github.com/malkin0xb8/beammp-helm-chart
+home: https://beammp.com
