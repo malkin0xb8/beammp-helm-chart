@@ -1,0 +1,44 @@
+beammp:
+
+  authKey: "your_auth_key_here"
+  authKeySecret: "auth-key-secret-name"
+  debug: false
+  description: "My BeamMP Server"
+  map: "'/levels/gridmap_v2/info.json'"
+  maxCars: 50
+  maxPlayers: 100
+  name: "My BeamMP Server"
+  port: 8080
+  private: false
+  resourceFolder: "/path/to/resource/folder"
+
+  mods:
+    - name: "mod1"
+      url: "http://example.com/mod1.zip"
+    - name: "mod2"
+      url: "http://example.com/mod2.zip"
+
+  image:
+    repository: ghcr.io/malkin0xb8/beammp-server
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 8080
+
+  extra_env: []
+    # - name: ENV_VAR_NAME
+    #   value: env_var_value
+
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}

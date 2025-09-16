@@ -1,6 +1,6 @@
 FROM debian:12-slim
 
-RUN apt-get update && apt-get install -y curl jq gettext-base && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y curl jq gettext-base liblua5.3-0 && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /server
 
