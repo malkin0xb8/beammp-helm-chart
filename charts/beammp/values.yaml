@@ -1,6 +1,5 @@
 beammp:
 
-  authKey: "your_auth_key_here"
   authKeySecret: "auth-key-secret-name"
   debug: false
   description: "My BeamMP Server"
@@ -19,7 +18,7 @@ beammp:
       url: "http://example.com/mod2.zip"
 
   image:
-    repository: ghcr.io/malkin0xb8/beammp-docker
+    repository: ghcr.io/malkin0xb8/beammp-helm-chart
     tag: latest
     pullPolicy: IfNotPresent
 
