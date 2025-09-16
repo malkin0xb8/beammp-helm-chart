@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-beammp
+  labels:
+    app: beammp
+    chart: beammp
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beammp
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: beammp
+        release: {{ .Release.Name }}
+    spec:
+      initContainers:
+        - name: download-mods
+          image: curlimages/curl:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+              mkdir -p {{ .Values.beammp.resourceFolder }}/Client
+              {{- range .Values.beammp.mods }}
+              echo "Downloading {{ .name }} from {{ .url }}"
+              curl -L "{{ .url }}" -o "{{ $.Values.beammp.resourceFolder }}/Client/{{ .name }}.zip"
+              {{- end }}
+          volumeMounts:
+            - name: resources
+              mountPath: {{ .Values.beammp.resourceFolder }}
+      containers:
+        - name: beammp-server
+          image: "{{ .Values.beammp.image.repository }}:{{ .Values.beammp.image.tag }}"
+          imagePullPolicy: {{ .Values.beammp.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.beammp.port }}
+          env:
+            - name: AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.beammp.authKeySecret }}
+                  key: authKey
+            - name: DEBUG
+              value: "{{ .Values.beammp.debug }}"
+            - name: DESCRIPTION
+              value: "{{ .Values.beammp.description }}"
+            - name: MAP
+              value: {{ .Values.beammp.map }}
+            - name: MAX_CARS
+              value: "{{ .Values.beammp.maxCars }}"
+            - name: MAX_PLAYERS
+              value: "{{ .Values.beammp.maxPlayers }}"
+            - name: SERVER_NAME
+              value: "{{ .Values.beammp.name }}"
+            - name: PORT
+              value: "{{ .Values.beammp.port }}"
+            - name: PRIVATE
+              value: "{{ .Values.beammp.private }}"
+            - name: RESOURCE_FOLDER
+              value: "{{ .Values.beammp.resourceFolder }}"
+{{- if .Values.beammp.extra_env }}
+{{ toYaml .Values.beammp.extra_env | indent 12 }}
+{{- end }}
+          resources:
+{{ toYaml .Values.beammp.resources | indent 12 }}
+          volumeMounts:
+            - name: resources
+              mountPath: {{ .Values.beammp.resourceFolder }}
+      volumes:
+        - name: resources
+          emptyDir: {}
+      nodeSelector:
+{{ toYaml .Values.beammp.nodeSelector | indent 8 }}
+      tolerations:
+{{ toYaml .Values.beammp.tolerations | indent 8 }}
+      affinity:
+{{ toYaml .Values.beammp.affinity | indent 8 }}
