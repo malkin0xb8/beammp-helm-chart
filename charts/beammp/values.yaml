@@ -19,7 +19,7 @@ beammp:
       url: "http://example.com/mod2.zip"
 
   image:
-    repository: ghcr.io/malkin0xb8/beammp-server
+    repository: ghcr.io/malkin0xb8/beammp-docker
     tag: latest
     pullPolicy: IfNotPresent
 
